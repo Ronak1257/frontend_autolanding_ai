@@ -24,12 +24,12 @@ import useUserSessionStore from "@/services/state/useUserSessionStore";
 import { Auth } from '@supabase/auth-ui-react';
 import { SocialLayout, ThemeSupa, ViewType } from '@supabase/auth-ui-shared'
 
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Theme } from "react-toastify";
-import { ThemeProvider } from "@/services/providers/ThemeProvider";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import { Theme } from "react-toastify";
+// import { ThemeProvider } from "@/services/providers/ThemeProvider";
 import { supabase } from "@/hooks/supaBase";
-import { Provider } from "@radix-ui/react-toast";
+// import { Provider } from "@radix-ui/react-toast";
 
 const formSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -57,10 +57,10 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+        provider: "google",
         options: {
-          redirectTo: 'http://localhost:5173/auth/callback',
-        }
+          redirectTo: "https://www.autolanding.ai/auth/callback",
+        },
       });
       if (error) {
         throw error;
@@ -78,7 +78,7 @@ export default function LoginPage() {
       setLoading(false);
     }
   }
-  
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     try {
@@ -114,18 +114,33 @@ export default function LoginPage() {
         <div className="flex flex-col justify-center items-center bg-dark-blue-100 p-8 max-w-[50%]">
           <Carousel autoPlay infiniteLoop showThumbs={false} className="w-full">
             <div>
-              <img src="https://pbs.twimg.com/media/EAC2iswX4AUZXav.jpg" alt="Slide 1" />
+              <img
+                src="https://pbs.twimg.com/media/EAC2iswX4AUZXav.jpg"
+                alt="Slide 1"
+              />
             </div>
             <div>
-              <img src="https://res.cloudinary.com/upwork-cloud/image/upload/c_scale,w_1000/v1707927008/catalog/1486193250725023744/lji9hy0cptoe849n5xdl.webp" alt="Slide 2" />
+              <img
+                src="https://res.cloudinary.com/upwork-cloud/image/upload/c_scale,w_1000/v1707927008/catalog/1486193250725023744/lji9hy0cptoe849n5xdl.webp"
+                alt="Slide 2"
+              />
             </div>
             <div>
-              <img src="https://images.ctfassets.net/m9n8o4ceoyuw/7L9z8LIlai8hBJrl1xWhX/9d740ec59d0712021ec1bd397b5a868a/Discord_-_Server.jpg" alt="Slide 3" />
+              <img
+                src="https://images.ctfassets.net/m9n8o4ceoyuw/7L9z8LIlai8hBJrl1xWhX/9d740ec59d0712021ec1bd397b5a868a/Discord_-_Server.jpg"
+                alt="Slide 3"
+              />
             </div>
           </Carousel>
-          <Button className="mt-4 bg-green-500"><a href="https://discord.gg/xeX2Zhut82" target="_blank">
-          Join the Discord</a></Button>
-          <h1 className="mt-4 text-center text-black dark:text-white font-bold"> Join 100s of agencies/communities and exchange client on referral</h1>
+          <Button className="mt-4 bg-green-500">
+            <a href="https://discord.gg/xeX2Zhut82" target="_blank">
+              Join the Discord
+            </a>
+          </Button>
+          <h1 className="mt-4 text-center text-black dark:text-white font-bold">
+            {" "}
+            Join 100s of agencies/communities and exchange client on referral
+          </h1>
         </div>
         <div className="flex w-[50%] px-4 h-full justify-center items-center">
           <Card className="h-fit max-w-[700px] w-full">
@@ -134,10 +149,17 @@ export default function LoginPage() {
             </CardHeader>
             <CardContent className="grid gap-4">
               <div className="flex justify-center">
-                <GoogleButton onClick={()=>{ThirdPartyOAuth()}}/>
+                <GoogleButton
+                  onClick={() => {
+                    ThirdPartyOAuth();
+                  }}
+                />
               </div>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-8"
+                >
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <FormField
@@ -147,7 +169,10 @@ export default function LoginPage() {
                           <FormItem>
                             <FormLabel>Email Address</FormLabel>
                             <FormControl>
-                              <Input placeholder="johndoe@gmail.com" {...field} />
+                              <Input
+                                placeholder="johndoe@gmail.com"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
